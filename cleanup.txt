@@ -1,0 +1,54 @@
+REM -----------------------------------------------------------------------------------------
+REM   Pentestit.de - Frank Neugebauer (06.01.2023)
+REM   Tested with Lenovo Thinkpad T440 (German Keyboard) and
+REM   Malduino W from Maltronics
+REM   https://docs.maltronics.com/devices/malduino-w
+REM   Use this payload to clean everthing up and start Virus Protection.
+REM   Currently supported layouts: DE, GB, US, ES, FR, DK, RU
+REM   ---------------------------------------------------------------------------------------
+LOCALE DE
+DEFAULTDELAY 2000
+Gui r
+REM LED off
+LED 0 0 0 
+REM Delete Backdoor and clean up
+REM Run PowerShell as Administrator
+STRING powershell Start-Process powershell -Verb runAS
+ENTER
+REM This option is the default. It is used to prompt the administrator in Admin Approval Mode.
+STRING reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f
+ENTER
+REM Remove Payload directory
+STRING Remove-Item -Path c:\Payloads -Force
+ENTER
+STRING J
+ENTER
+STRING exit
+ENTER
+Gui s
+REM Enable Tamper Protection
+STRING Viren- und Bedrohungsschutz
+ENTER
+TAB
+TAB
+TAB
+TAB
+TAB
+ENTER
+SPACE
+TAB
+TAB
+ENTER
+TAB
+TAB
+SPACE
+TAB
+TAB
+SPACE
+TAB
+TAB
+TAB
+SPACE
+ALT F4
+REM LED green
+LED 0 255 0

